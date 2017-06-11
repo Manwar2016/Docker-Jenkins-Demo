@@ -1,0 +1,12 @@
+#Build a simple Spring Boot app with Docker
+#Reuired software 
+#Docker, JDK1.8, Maven or Gradle.
+#Installation of required software
+##############################################
+sudo add-apt-repository ppa:webupd8team/java -y
+sudo apt-get update -y
+sudo apt-get install oracle-java8-installer -y
+java -version
+sudo apt-get install gradle -y
+sudo apt-get install maven -y
+
