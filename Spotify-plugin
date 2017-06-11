@@ -1,0 +1,36 @@
+Build a Docker Image with Maven
+The maven supports the docker plugin in order to build the docker image. The following three configurations are required in building the docker image either with maven or gradle.
+    The image name (or tag)
+    The directory in which to find the Dockerfile
+    The resources (files) to copy from the target directory to the docker build (alongside the Dockerfile) - we only need the jar file in this example
+
+The maven pom.xml should contain the following configuration
+
+
+<properties>
+        <docker.image.prefix>springio</docker.image.prefix>
+</properties>
+<build>
+    <plugins>
+        <plugin>
+            <groupId>com.spotify</groupId>
+            <artifactId>docker-maven-plugin</artifactId>
+            <version>0.2.3</version>
+            <configuration>
+                <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                <dockerDirectory>src/main/docker</dockerDirectory>
+                <resources>
+                    <resource>
+                        <targetPath>/</targetPath>
+                        <directory>${project.build.directory}</directory>
+                        <include>${project.build.finalName}.jar</include>
+                    </resource>
+                </resources>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+
+
+Using the maven build the docker image
+$ mvn package docker:build
